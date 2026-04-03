@@ -55,8 +55,11 @@ for (let i = 0; i < lines.length; i++) {
         currentSection = 'roots';
     } else if (line === 'RECOMMENDATIONS') {
         currentSection = 'recommendations';
-    } else if (line.startsWith('*')) {
-        line = line.replace(/^\*\s*/, '').trim();
+    } else if (line.startsWith('*') || (line && currentSection && currentSection !== '')) {
+        // Handle bullet points AND continuation lines (lines without asterisks that are part of the current section)
+        if (line.startsWith('*')) {
+            line = line.replace(/^\*\s*/, '').trim();
+        }
         line = normalizeText(line);  // Normalize special characters
         if (currentDisease && line) {
             if (currentSection === 'description') {
@@ -83,10 +86,10 @@ function cleanText(text) {
 
 diseases.forEach(d => {
     d.name = cleanText(d.name);
-    d.description = cleanText(d.description).substring(0, 200);
-    d.general = cleanText(d.general).substring(0, 300);
-    d.roots = cleanText(d.roots).substring(0, 250);
-    d.recommendations = cleanText(d.recommendations).substring(0, 250);
+    d.description = cleanText(d.description);
+    d.general = cleanText(d.general);
+    d.roots = cleanText(d.roots);
+    d.recommendations = cleanText(d.recommendations);
 });
 
 const jsContent = `// Complete 359-Disease Database
