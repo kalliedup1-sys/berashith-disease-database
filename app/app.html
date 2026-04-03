@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Berashith Diseases & Sicknesses Database</title>
+    <title>Disease Search</title>
     <style>
         * {
             margin: 0;
@@ -13,204 +13,307 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            background: #171515;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .header-image {
+            width: 100vw;
+            height: 400px;
+            object-fit: contain;
+            margin-left: calc(-50vw + 50%);
+            margin-bottom: 0;
+            background: #171515;
         }
 
         .container {
-            max-width: 1000px;
+            width: 100%;
+            max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
+            padding: 0 20px;
+        }
+
+        .search-container {
+            background: #171515;
+            overflow: visible;
+            width: 100%;
+            margin: 40px auto;
+            max-width: 100%;
+            border-radius: 8px;
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px 30px;
-            text-align: center;
+            display: none;
         }
 
         .header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
         }
 
         .header p {
             font-size: 1.1em;
-            opacity: 0.95;
-        }
-
-        .search-section {
-            padding: 30px;
-            background: #f8f9fa;
-            border-bottom: 2px solid #e9ecef;
+            opacity: 0.9;
         }
 
         .search-box {
-            position: relative;
+            padding: 40px;
+            background: #171515;
+            border-bottom: 1px solid #d4af37;
+        }
+
+        .search-title {
+            font-size: 1.8em;
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-weight: 600;
         }
 
         #searchInput {
             width: 100%;
-            padding: 15px 20px 15px 50px;
-            font-size: 1em;
-            border: 2px solid #667eea;
-            border-radius: 10px;
+            padding: 16px 20px;
+            font-size: 1.1em;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
             transition: all 0.3s ease;
-            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23667eea' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: 15px center;
-            background-size: 20px;
-            padding-left: 50px;
+            background: white;
+            color: #000000;
         }
 
         #searchInput:focus {
             outline: none;
-            border-color: #764ba2;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #313131;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
         }
 
-        #searchInput::placeholder {
-            color: #999;
+        .search-btn {
+            padding: 16px 40px;
+            font-size: 1em;
+            font-weight: 600;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
         }
 
-        .results-section {
-            padding: 30px;
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .search-btn:active {
+            transform: translateY(0);
+        }
+
+        .results {
+            padding: 40px;
             max-height: 700px;
             overflow-y: auto;
         }
 
-        .results-section::-webkit-scrollbar {
-            width: 8px;
+        .result-item {
+            margin-bottom: 35px;
+            padding: 30px;
+            background: #1a1a1a;
+            border-radius: 8px;
+            border-left: 5px solid #d4af37;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
         }
 
-        .results-section::-webkit-scrollbar-track {
-            background: #f1f1f1;
+        .result-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .results-section::-webkit-scrollbar-thumb {
-            background: #667eea;
-            border-radius: 4px;
+        .result-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 20px;
         }
 
-        .results-section::-webkit-scrollbar-thumb:hover {
-            background: #764ba2;
+        .result-section {
+            margin-bottom: 20px;
+        }
+
+        .result-label {
+            font-weight: 700;
+            color: #d4af37;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            letter-spacing: 0.5px;
+        }
+
+        .result-label::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            background: #d4af37;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .result-content {
+            color: #ffffff;
+            line-height: 1.8;
+            font-size: 0.98em;
+            padding-left: 14px;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            font-weight: 600;
+            padding: 2px 4px;
+            border-radius: 3px;
+            color: #856404;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 80px 40px;
+            color: #d4af37;
+        }
+
+        .no-results-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .no-results p {
+            font-size: 1.1em;
         }
 
         .empty-state {
             text-align: center;
-            padding: 60px 30px;
-            color: #999;
+            padding: 80px 40px;
+            color: #d4af37;
         }
 
         .empty-state-icon {
-            font-size: 4em;
+            font-size: 3em;
             margin-bottom: 20px;
+            opacity: 0.5;
         }
 
         .empty-state p {
             font-size: 1.1em;
         }
 
-        .disease-card {
-            background: #f8f9fa;
-            border-left: 4px solid #667eea;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            cursor: pointer;
+        ::-webkit-scrollbar {
+            width: 8px;
         }
 
-        .disease-card:hover {
-            background: #fff;
-            border-left-color: #764ba2;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
-            transform: translateX(5px);
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
         }
 
-        .disease-name {
-            font-size: 1.4em;
-            font-weight: 600;
-            color: #667eea;
-            margin-bottom: 10px;
+        ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 4px;
         }
 
-        .disease-section {
-            margin-bottom: 15px;
+        ::-webkit-scrollbar-thumb:hover {
+            background: #313131;
         }
 
-        .disease-section-title {
-            font-weight: 600;
-            color: #764ba2;
+        .footer {
+            text-align: center;
+            padding: 50px 20px;
+            color: #CCCCCC;
             font-size: 0.95em;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-            letter-spacing: 0.5px;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-top: 40px;
+            background: #1a1a1a;
         }
 
-        .disease-section-content {
-            color: #333;
-            line-height: 1.6;
-            padding-left: 10px;
-            border-left: 2px solid #e9ecef;
+        .footer p {
+            margin: 10px 0;
+            color: #CCCCCC;
         }
 
-        .no-results {
-            text-align: center;
-            padding: 40px 20px;
-            color: #999;
-        }
-
-        .no-results-icon {
-            font-size: 3em;
-            margin-bottom: 15px;
-        }
-
-        .result-count {
-            text-align: center;
-            color: #666;
+        .footer-title {
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 8px;
             font-size: 0.9em;
-            margin-bottom: 20px;
-            font-style: italic;
+            text-transform: uppercase;
         }
 
-        .highlight {
-            background-color: #fff3cd;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-weight: 500;
+        @media (max-width: 768px) {
+            .search-box {
+                padding: 25px;
+            }
+
+            .results {
+                padding: 25px;
+            }
+
+            .result-item {
+                padding: 20px;
+            }
+
+            .result-title {
+                font-size: 1.3em;
+            }
+
+            .search-title {
+                font-size: 1.5em;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>🏥 Berashith Diseases & Sicknesses Database</h1>
-            <p>Complete Medical & Spiritual Information for 359 Diseases</p>
-        </div>
+        <img src="images/Set the Captives Free - Sickness and Disceases.jpg" alt="Set the Captives Free - Sickness and Diseases" class="header-image">
+        <div class="search-container">
+            <div class="header">
+                <h1>🏥 Disease & Sickness Search</h1>
+                <p>Find information about diseases, sicknesses, and health conditions</p>
+            </div>
 
-        <div class="search-section">
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Search diseases, symptoms, roots, or recommendations...">
+                <h2 class="search-title">Disease & Sickness Database Search</h2>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search for a Disease or Sickness..."
+                    autocomplete="off"
+                >
+            </div>
+
+            <div class="results" id="results">
+                <div class="empty-state">
+                    <div class="empty-state-icon">🔍</div>
+                    <p>Start typing to search for diseases and sicknesses...</p>
+                </div>
             </div>
         </div>
-
-        <div class="results-section" id="results">
-            <div class="empty-state">
-                <div class="empty-state-icon">🔍</div>
-                <p>Start typing to search for diseases and sicknesses...</p>
-            </div>
+        <div class="footer">
+            <p class="footer-title">Disease & Sickness Database Search Engine</p>
+            <p class="footer-title" style="margin-top: 20px;">Created by</p>
+            <p>Utilisoft - Productive IT Solutions since 2001</p>
+            <p style="margin-top: 20px; font-size: 0.85em;">© 2026 All Rights Reserved | Berashith Ministry & Utilisoft</p>
         </div>
     </div>
 
     <script src="diseases-complete-359.js"></script>
     <script>
+        // DISEASES array now loaded from diseases-complete-359.js
+        // All 359 diseases with complete medical/spiritual information
+        
         const searchInput = document.getElementById('searchInput');
         const resultsContainer = document.getElementById('results');
 
@@ -245,68 +348,154 @@
             if (results.length === 0) {
                 resultsContainer.innerHTML = `
                     <div class="no-results">
-                        <div class="no-results-icon">😔</div>
+                        <div class="no-results-icon">❌</div>
                         <p>No diseases found matching "<strong>${escapeHtml(query)}</strong>"</p>
-                        <p style="font-size: 0.9em; margin-top: 10px;">Try searching for body parts, symptoms, or conditions.</p>
                     </div>
                 `;
                 return;
             }
 
-            let html = `<div class="result-count">Found ${results.length} result${results.length !== 1 ? 's' : ''}</div>`;
-            
-            results.forEach(disease => {
-                html += `
-                    <div class="disease-card">
-                        <div class="disease-name">${escapeHtml(disease.name)}</div>
-                        ${disease.description ? `
-                            <div class="disease-section">
-                                <div class="disease-section-title">Description</div>
-                                <div class="disease-section-content">${escapeHtml(disease.description)}</div>
-                            </div>
-                        ` : ''}
-                        ${disease.general ? `
-                            <div class="disease-section">
-                                <div class="disease-section-title">General Information</div>
-                                <div class="disease-section-content">${escapeHtml(disease.general)}</div>
-                            </div>
-                        ` : ''}
-                        ${disease.roots ? `
-                            <div class="disease-section">
-                                <div class="disease-section-title">Roots/Symptoms</div>
-                                <div class="disease-section-content">${escapeHtml(disease.roots)}</div>
-                            </div>
-                        ` : ''}
-                        ${disease.recommendations ? `
-                            <div class="disease-section">
-                                <div class="disease-section-title">Recommendations</div>
-                                <div class="disease-section-content">${escapeHtml(disease.recommendations)}</div>
-                            </div>
-                        ` : ''}
+            resultsContainer.innerHTML = results.map(disease => `
+                <div class="result-item">
+                    <div class="result-title">${highlightMatch(disease.name, query)}</div>
+                    
+                    <div class="result-section">
+                        <div class="result-label">Description</div>
+                        <div class="result-content">${highlightMatch(disease.description, query)}</div>
                     </div>
-                `;
-            });
-
-            resultsContainer.innerHTML = html;
+                    
+                    <div class="result-section">
+                        <div class="result-label">General Information</div>
+                        <div class="result-content">${highlightMatch(disease.general, query)}</div>
+                    </div>
+                    
+                    <div class="result-section">
+                        <div class="result-label">Roots/Symptoms</div>
+                        <div class="result-content">${highlightMatch(disease.roots, query)}</div>
+                    </div>
+                    
+                    <div class="result-section">
+                        <div class="result-label">Recommendations</div>
+                        <div class="result-content">${highlightMatch(disease.recommendations, query)}</div>
+                    </div>
+                </div>
+            `).join('');
         }
 
-        // Function to escape HTML special characters
+        // Search as user types
+        searchInput.addEventListener('input', performSearch);
+
+        // Enter key in search input
+        searchInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        function highlightMatch(text, query) {
+            if (!query) return escapeHtml(text);
+            const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return escapeHtml(text).replace(regex, '<span class="highlight">$1</span>');
+        }
+
         function escapeHtml(text) {
             const div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
         }
 
-        // Add event listener for search input
+        // Initialization
+        performSearch();  // Show empty state on load
+    </script>
+</body>
+</html>
+
+        // Function to perform search
+        function performSearch() {
+            const query = searchInput.value.trim().toLowerCase();
+            
+            if (!query) {
+                resultsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🔍</div>
+                        <p>Start typing to search for diseases and sicknesses...</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const results = DISEASES.filter(disease => {
+                return disease.name.toLowerCase().includes(query) ||
+                       disease.description.toLowerCase().includes(query) ||
+                       disease.general.toLowerCase().includes(query) ||
+                       disease.roots.toLowerCase().includes(query) ||
+                       disease.recommendations.toLowerCase().includes(query);
+            }).sort((a, b) => {
+                const aNameMatch = a.name.toLowerCase().includes(query);
+                const bNameMatch = b.name.toLowerCase().includes(query);
+                if (aNameMatch && !bNameMatch) return -1;
+                if (!aNameMatch && bNameMatch) return 1;
+                return 0;
+            });
+
+            if (results.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">❌</div>
+                        <p>No diseases found matching "<strong>${escapeHtml(query)}</strong>"</p>
+                    </div>
+                `;
+                return;
+            }
+
+            resultsContainer.innerHTML = results.map(disease => `
+                <div class="result-item">
+                    <div class="result-title">${highlightMatch(disease.name, query)}</div>
+                    
+                    <div class="result-section">
+                        <div class="result-label">Description</div>
+                        <div class="result-content">${highlightMatch(disease.description, query)}</div>
+                    </div>
+                    
+                    <div class="result-section">
+                        <div class="result-label">General Information</div>
+                        <div class="result-content">${highlightMatch(disease.general, query)}</div>
+                    </div>
+                    
+                    <div class="result-section">
+                        <div class="result-label">Roots/Symptoms</div>
+                        <div class="result-content">${highlightMatch(disease.roots, query)}</div>
+                    </div>
+                    
+                    <div class="result-section">
+                        <div class="result-label">Recommendations</div>
+                        <div class="result-content">${highlightMatch(disease.recommendations, query)}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Search as user types
         searchInput.addEventListener('input', performSearch);
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
+
+        // Enter key in search input
+        searchInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
                 performSearch();
             }
         });
 
-        // Initialization
-        performSearch();  // Show empty state on load
+        function highlightMatch(text, query) {
+            if (!query) return escapeHtml(text);
+            const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return escapeHtml(text).replace(regex, '<span class="highlight">$1</span>');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
     </script>
 </body>
 </html>
