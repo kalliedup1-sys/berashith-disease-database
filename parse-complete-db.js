@@ -4,6 +4,23 @@ const path = require('path');
 const filePath = path.join(__dirname, 'doc', 'Online_Sicknesses__Diseases_only.txt');
 const content = fs.readFileSync(filePath, 'utf-8');
 
+// Function to normalize special Unicode characters to standard ASCII
+function normalizeText(text) {
+    if (!text) return '';
+    return text
+        // Smart quotes and apostrophes - convert to standard ASCII
+        .replace(/[""]/g, '"')           // Curly double quotes → straight quotes
+        .replace(/['']/g, "'")           // Curly single quotes → straight apostrophe
+        .replace(/`/g, "'")              // Backtick to apostrophe
+        .replace(/´/g, "'")              // Acute accent to apostrophe
+        .replace(/–/g, '-')              // En-dash to hyphen
+        .replace(/—/g, '-')              // Em-dash to hyphen  
+        .replace(/…/g, '...')            // Ellipsis to three dots
+        // Remove any remaining problematic characters
+        .replace(/[^\x20-\x7E\n\t\r.,'"-]/g, '') // Keep only printable ASCII + whitespace
+        .trim();
+}
+
 const diseases = [];
 let currentDisease = null;
 let currentSection = '';
@@ -40,6 +57,7 @@ for (let i = 0; i < lines.length; i++) {
         currentSection = 'recommendations';
     } else if (line.startsWith('*')) {
         line = line.replace(/^\*\s*/, '').trim();
+        line = normalizeText(line);  // Normalize special characters
         if (currentDisease && line) {
             if (currentSection === 'description') {
                 currentDisease.description += (currentDisease.description ? ' ' : '') + line;
@@ -58,11 +76,17 @@ if (currentDisease && currentDisease.name) {
     diseases.push(currentDisease);
 }
 
+// Function to clean special characters
+function cleanText(text) {
+    return normalizeText(text);
+}
+
 diseases.forEach(d => {
-    d.description = d.description.substring(0, 200);
-    d.general = d.general.substring(0, 300);
-    d.roots = d.roots.substring(0, 250);
-    d.recommendations = d.recommendations.substring(0, 250);
+    d.name = cleanText(d.name);
+    d.description = cleanText(d.description).substring(0, 200);
+    d.general = cleanText(d.general).substring(0, 300);
+    d.roots = cleanText(d.roots).substring(0, 250);
+    d.recommendations = cleanText(d.recommendations).substring(0, 250);
 });
 
 const jsContent = `// Complete 359-Disease Database
