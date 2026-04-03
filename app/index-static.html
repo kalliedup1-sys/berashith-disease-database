@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Search - Complete Reference</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e6fff;
+            --primary-dark: #1552cc;
+            --secondary: #7c3aed;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg: #f5f7fb;
+            --surface: #ffffff;
+            --text: #1f2937;
+            --text-secondary: #6b7280;
+            --border: #e5e7eb;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0f172a;
+                --surface: #1e293b;
+                --text: #f1f5f9;
+                --text-secondary: #cbd5e1;
+                --border: #334155;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .search-section {
+            margin-bottom: 2rem;
+        }
+
+        .search-box {
+            position: relative;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        #searchInput {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface);
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 111, 255, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            pointer-events: none;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .disease-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .disease-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .disease-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .disease-card-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .section-label {
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .disease-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(30, 111, 255, 0.1);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .highlight {
+            background: var(--warning);
+            color: white;
+            padding: 0.1em 0.3em;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .empty-state p {
+            font-size: 1rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏥 Disease Search</h1>
+            <p>Find comprehensive information about diseases and health conditions</p>
+        </header>
+
+        <div class="search-section">
+            <div class="search-box">
+                <input 
+                    type="search" 
+                    id="searchInput" 
+                    placeholder="Search by disease name, symptoms, or cause..."
+                    autocomplete="off"
+                >
+                <span class="search-icon">🔍</span>
+            </div>
+        </div>
+
+        <div id="results" class="results-grid"></div>
+
+        <footer>
+            <p>✨ Lightweight Disease Reference Database | No backend required | All data embedded</p>
+        </footer>
+    </div>
+
+    <script>
+        const DISEASES = [
+            {
+                id: 1,
+                name: "Acute Respiratory Infection (ARI)",
+                cause: "Viral or bacterial infection of upper/lower respiratory tract, often spread through respiratory droplets",
+                symptoms: "Cough, fever, sore throat, runny or blocked nose, difficulty breathing",
+                description: "Common infectious disease affecting the respiratory system, ranging from mild to severe",
+                additional_info: "Supportive care: fluids, rest, symptomatic treatment; antibiotics if bacterial",
+                page: 21,
+                tags: ["respiratory", "viral", "infectious", "common"]
+            },
+            {
+                id: 2,
+                name: "Malaria",
+                cause: "Parasitic infection transmitted by infected Anopheles mosquitoes",
+                symptoms: "High fever, chills, sweating, fatigue, body aches, headache",
+                description: "Serious parasitic disease endemic in tropical and subtropical regions",
+                additional_info: "Prevention: antimalarial drugs, mosquito nets; Treatment: artemisinin-based combination therapy",
+                page: 22,
+                tags: ["parasitic", "mosquito-borne", "tropical", "endemic"]
+            },
+            {
+                id: 3,
+                name: "Tuberculosis (TB)",
+                cause: "Bacterial infection (Mycobacterium tuberculosis) spread through airborne droplets",
+                symptoms: "Persistent cough (>3 weeks), chest pain, hemoptysis, night sweats, weight loss, fever",
+                description: "Chronic infectious disease primarily affecting the lungs, can spread to other organs",
+                additional_info: "Treatment: 6-month course of isoniazid, rifampicin, pyrazinamide, ethambutol",
+                page: 23,
+                tags: ["bacterial", "airborne", "infectious", "chronic"]
+            },
+            {
+                id: 4,
+                name: "Typhoid Fever",
+                cause: "Bacterial infection (Salmonella typhi) from contaminated food or water",
+                symptoms: "Sustained high fever, headache, weakness, abdominal pain, diarrhea or constipation, rose spots rash",
+                description: "Serious bacterial infection, common in areas with poor sanitation",
+                additional_info: "Prevention: typhoid vaccine; Treatment: antibiotics (fluoroquinolones or cephalosporins)",
+                page: 24,
+                tags: ["bacterial", "waterborne", "endemic", "preventable"]
+            },
+            {
+                id: 5,
+                name: "Cholera",
+                cause: "Bacterial infection (Vibrio cholerae) from contaminated water",
+                symptoms: "Severe diarrhea (rice-water stools), vomiting, dehydration, muscle cramps, shock",
+                description: "Acute infectious disease causing severe dehydration and potential death if untreated",
+                additional_info: "Treatment: oral rehydration salts, antibiotics; Prevention: clean water, sanitation",
+                page: 25,
+                tags: ["bacterial", "waterborne", "diarrheal", "epidemic"]
+            },
+            {
+                id: 6,
+                name: "Dengue Fever",
+                cause: "Viral infection transmitted by Aedes mosquitoes",
+                symptoms: "Sudden fever, severe headache, muscle and joint pain, rash, weakness",
+                description: "Viral disease transmitted by mosquitoes, common in tropical regions",
+                additional_info: "Prevention: mosquito control, repellents; Treatment: supportive care, fluid replacement",
+                page: 26,
+                tags: ["viral", "mosquito-borne", "tropical", "endemic"]
+            },
+            {
+                id: 7,
+                name: "Type 2 Diabetes Mellitus",
+                cause: "Combination of insulin resistance and insufficient insulin production; genetic and lifestyle factors",
+                symptoms: "Increased thirst, frequent urination, fatigue, blurred vision, slow wound healing",
+                description: "Chronic metabolic disorder characterized by high blood glucose levels",
+                additional_info: "Management: lifestyle changes, oral medications (metformin), insulin if needed; monitoring essential",
+                page: 27,
+                tags: ["metabolic", "chronic", "preventable", "lifestyle-related"]
+            },
+            {
+                id: 8,
+                name: "Hypertension (High Blood Pressure)",
+                cause: "Multifactorial: genetic predisposition, obesity, salt intake, stress, sedentary lifestyle",
+                symptoms: "Often asymptomatic; may cause headache, shortness of breath, chest discomfort",
+                description: "Chronic cardiovascular disease; persistent elevation of blood pressure",
+                additional_info: "Management: lifestyle modification, antihypertensive medications (ACE inhibitors, beta-blockers); regular monitoring",
+                page: 28,
+                tags: ["cardiovascular", "chronic", "silent-killer", "lifestyle-related"]
+            },
+            {
+                id: 9,
+                name: "Pneumonia",
+                cause: "Bacterial, viral, or fungal infection of lung alveoli",
+                symptoms: "Cough with sputum, fever, chest pain, shortness of breath, fatigue",
+                description: "Serious lung infection causing inflammation and fluid accumulation",
+                additional_info: "Treatment: antibiotics if bacterial, antivirals if viral; oxygen therapy in severe cases",
+                page: 29,
+                tags: ["respiratory", "infectious", "serious", "preventable"]
+            },
+            {
+                id: 10,
+                name: "Influenza (Flu)",
+                cause: "Viral infection (influenza A, B, or C) spread through respiratory droplets",
+                symptoms: "Sudden onset fever, cough, sore throat, body aches, headache, fatigue",
+                description: "Acute viral respiratory infection, seasonal epidemic disease",
+                additional_info: "Prevention: annual flu vaccine; Treatment: antivirals (oseltamivir) within 48 hours of onset",
+                page: 30,
+                tags: ["viral", "respiratory", "seasonal", "infectious"]
+            },
+            {
+                id: 11,
+                name: "HIV/AIDS",
+                cause: "Human Immunodeficiency Virus (HIV) transmission through blood, sexual contact, or mother-to-child",
+                symptoms: "Early: fever, rash, lymphadenopathy; Late: opportunistic infections, weight loss, neurological symptoms",
+                description: "Serious immunodeficiency disease; acquired syndrome of infectious and malignant diseases",
+                additional_info: "Treatment: antiretroviral therapy (combination); Prevention: PrEP, safe practices, condoms",
+                page: 31,
+                tags: ["viral", "immunodeficiency", "infectious", "chronic"]
+            },
+            {
+                id: 12,
+                name: "Hepatitis B",
+                cause: "Viral infection (Hepatitis B virus) through blood, sexual contact, or vertical transmission",
+                symptoms: "Jaundice, fatigue, abdominal pain, dark urine, pale stools, fever",
+                description: "Viral infection of the liver; can progress to cirrhosis and hepatocellular carcinoma",
+                additional_info: "Prevention: hepatitis B vaccine; Treatment: antivirals (tenofovir, lamivudine); liver monitoring",
+                page: 32,
+                tags: ["viral", "liver", "infectious", "preventable"]
+            },
+            {
+                id: 13,
+                name: "Asthma",
+                cause: "Multifactorial: genetic predisposition, allergies, environmental triggers, airway hyperresponsiveness",
+                symptoms: "Wheezing, shortness of breath, chest tightness, cough (especially at night)",
+                description: "Chronic inflammatory airway disease causing reversible airflow obstruction",
+                additional_info: "Management: inhalers (beta-agonists, corticosteroids), trigger avoidance, action plan",
+                page: 33,
+                tags: ["respiratory", "chronic", "inflammatory", "preventable"]
+            },
+            {
+                id: 14,
+                name: "Eczema (Atopic Dermatitis)",
+                cause: "Genetic predisposition, immune dysfunction, skin barrier defect, environmental triggers",
+                symptoms: "Intense itching, rash, dry skin, small raised bumps, cracked/sensitive skin",
+                description: "Chronic inflammatory skin disease causing severe itching and skin barrier dysfunction",
+                additional_info: "Management: moisturizers, topical corticosteroids, topical calcineurin inhibitors, skin care",
+                page: 34,
+                tags: ["dermatological", "chronic", "inflammatory", "genetic"]
+            },
+            {
+                id: 15,
+                name: "Obesity",
+                cause: "Energy imbalance: excessive caloric intake, sedentary lifestyle, genetic factors, metabolic disorders",
+                symptoms: "Excess body weight, increased waist circumference; often asymptomatic initially",
+                description: "Chronic condition characterized by excessive body fat accumulation affecting health",
+                additional_info: "Management: dietary changes, physical activity, behavioral therapy, medication/surgery in severe cases",
+                page: 35,
+                tags: ["metabolic", "lifestyle-related", "chronic", "preventable"]
+            },
+            {
+                id: 16,
+                name: "Depression (Major Depressive Disorder)",
+                cause: "Multifactorial: genetic predisposition, neurochemical imbalances, life stress, trauma",
+                symptoms: "Persistent sadness, loss of interest, sleep changes, appetite changes, fatigue, guilt, concentration difficulty",
+                description: "Serious mental illness affecting mood, thoughts, and behavior; high suicide risk",
+                additional_info: "Treatment: psychotherapy, antidepressants (SSRIs), lifestyle changes, support systems",
+                page: 36,
+                tags: ["mental-health", "psychiatric", "chronic", "treatable"]
+            }
+        ];
+
+        const DEBOUNCE_DELAY = 300;
+        let debounceTimer;
+
+        const searchInput = document.getElementById('searchInput');
+        const resultsContainer = document.getElementById('results');
+
+        function debounce(fn, delay) {
+            return function (...args) {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => fn.apply(this, args), delay);
+            };
+        }
+
+        function performSearch(query) {
+            if (!query.trim()) {
+                displayDiseases(DISEASES.slice(0, 6));
+                return;
+            }
+
+            const query_lower = query.toLowerCase();
+            const results = DISEASES.map(disease => {
+                let score = 0;
+                const name_lower = disease.name.toLowerCase();
+
+                // Relevance scoring
+                if (name_lower === query_lower) score += 1000;
+                else if (name_lower.startsWith(query_lower)) score += 500;
+                else if (name_lower.includes(query_lower)) score += 300;
+
+                if (disease.symptoms.toLowerCase().includes(query_lower)) score += 150;
+                if (disease.cause.toLowerCase().includes(query_lower)) score += 100;
+                if (disease.tags.some(tag => tag.toLowerCase().includes(query_lower))) score += 50;
+                if (disease.description.toLowerCase().includes(query_lower)) score += 25;
+
+                return { ...disease, score };
+            }).filter(d => d.score > 0)
+              .sort((a, b) => b.score - a.score)
+              .slice(0, 50);
+
+            if (results.length === 0) {
+                displayEmpty(query);
+            } else {
+                displayDiseases(results, query);
+            }
+        }
+
+        function displayDiseases(diseases, query = '') {
+            resultsContainer.innerHTML = diseases.map(disease => `
+                <div class="disease-card">
+                    <h3>${highlightMatch(disease.name, query)}</h3>
+                    <div class="disease-card-meta">
+                        <span class="badge">Page ${disease.page}</span>
+                    </div>
+                    
+                    <div class="section-label">🔬 Cause</div>
+                    <p>${highlightMatch(disease.cause, query)}</p>
+                    
+                    <div class="section-label">⚠️ Symptoms</div>
+                    <p>${highlightMatch(disease.symptoms, query)}</p>
+                    
+                    <div class="section-label">ℹ️ Description</div>
+                    <p>${highlightMatch(disease.description, query)}</p>
+                    
+                    <div class="section-label">💊 Treatment & Management</div>
+                    <p>${highlightMatch(disease.additional_info, query)}</p>
+                    
+                    <div class="tags">
+                        ${disease.tags.map(tag => `<span class="tag">#${tag}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function highlightMatch(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+
+        function displayEmpty(query) {
+            resultsContainer.innerHTML = `
+                <div class="empty-state" style="grid-column: 1/-1;">
+                    <h3>No results found</h3>
+                    <p>We couldn't find any diseases matching "<strong>${query}</strong>"</p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">Try searching for symptoms, causes, or disease names</p>
+                </div>
+            `;
+        }
+
+        // Event listeners
+        searchInput.addEventListener('input', debounce((e) => {
+            performSearch(e.target.value.trim());
+        }, DEBOUNCE_DELAY));
+
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                searchInput.value = '';
+                performSearch('');
+                searchInput.blur();
+            }
+        });
+
+        // Initial load - show first 6 diseases
+        displayDiseases(DISEASES.slice(0, 6));
+    </script>
+</body>
+</html>

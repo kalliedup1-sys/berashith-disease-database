@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1,
+    "name": "Acute Respiratory Infection (ARI)",
+    "cause": "Viral or bacterial infection of upper/lower respiratory tract. Transmitted via respiratory droplets.",
+    "symptoms": "Cough, fever, sore throat, runny/blocked nose, shortness of breath, chest pain.",
+    "description": "Common infectious disease affecting the respiratory system. Severity ranges from mild URI to severe pneumonia. Most cases self-limit within 1-2 weeks.",
+    "additional_info": "Supportive care: fluids, rest, symptomatic treatment. Antibiotics only if bacterial. Vaccination prevents some strains.",
+    "page": 21,
+    "tags": ["respiratory", "viral", "infectious", "common"]
+  },
+  {
+    "id": 2,
+    "name": "Malaria",
+    "cause": "Plasmodium parasites (P. falciparum, P. vivax, P. ovale, P. malariae, P. knowlesi) transmitted by Anopheles mosquitoes.",
+    "symptoms": "Fever (often high, cyclic), chills, sweats, headache, muscle aches, nausea, vomiting, diarrhea.",
+    "description": "Serious parasitic infection endemic in tropical/subtropical regions. Can be life-threatening if untreated, especially P. falciparum. Symptoms typically appear 7-30 days after infection.",
+    "additional_info": "Diagnosis: blood smear microscopy, rapid diagnostic tests, PCR. Treatment depends on species, severity, and drug resistance. Prophylaxis for travelers.",
+    "page": 24,
+    "tags": ["parasitic", "fever", "tropical", "severe"]
+  },
+  {
+    "id": 3,
+    "name": "Tuberculosis (TB)",
+    "cause": "Mycobacterium tuberculosis transmitted via airborne droplets. Can be latent or active.",
+    "symptoms": "Persistent cough (>3 weeks), hemoptysis, chest pain, fever, night sweats, weight loss, fatigue.",
+    "description": "Chronic bacterial infection primarily affecting lungs. Can progress to severe illness if untreated. Major global health concern. Latent TB: no symptoms but can reactivate.",
+    "additional_info": "Diagnosis: chest X-ray, sputum smear microscopy, TB culture, TB-IGRA. Treatment: 6-month multi-drug regimen. Highly curable if treated early.",
+    "page": 26,
+    "tags": ["bacterial", "respiratory", "chronic", "serious"]
+  },
+  {
+    "id": 4,
+    "name": "Typhoid Fever",
+    "cause": "Salmonella typhi bacteria, transmitted via contaminated food/water.",
+    "symptoms": "High sustained fever, headache, muscle aches, weakness, abdominal pain, rose spots rash, delirium.",
+    "description": "Systemic bacterial infection causing prolonged fever. Common in areas with poor sanitation. Can progress to severe complications (perforation, shock) without treatment.",
+    "additional_info": "Diagnosis: blood culture, Widal test. Treatment: antibiotics (fluoroquinolones, cephalosporins). Prevention: typhoid vaccination, safe water.",
+    "page": 28,
+    "tags": ["bacterial", "fever", "systemic", "serious"]
+  },
+  {
+    "id": 5,
+    "name": "Cholera",
+    "cause": "Vibrio cholerae bacteria, transmitted via contaminated water.",
+    "symptoms": "Sudden onset severe watery diarrhea (rice-water stool), vomiting, dehydration, electrolyte imbalance, hypotension.",
+    "description": "Acute infectious disease causing severe diarrhea and rapid dehydration. Fatality rate high without prompt treatment (up to 60%). Rapid onset (hours to days).",
+    "additional_info": "Treatment: aggressive fluid and electrolyte replacement (oral rehydration, IV fluids). Antibiotics shorten duration. Vaccination available. Prevention: safe water, sanitation.",
+    "page": 30,
+    "tags": ["bacterial", "gastrointestinal", "acute", "severe"]
+  },
+  {
+    "id": 6,
+    "name": "Dengue Fever",
+    "cause": "Dengue virus (DENV-1-4) transmitted by Aedes mosquitoes, primarily in tropical regions.",
+    "symptoms": "Sudden fever, severe headache, joint/muscle pain, rash, bleeding (in severe cases), shock.",
+    "description": "Common vector-borne viral disease. Incubation 3-14 days. Most recover within a week, but dengue hemorrhagic fever/shock syndrome can be life-threatening.",
+    "additional_info": "Diagnosis: serology (IgM/IgG), RT-PCR, NS1 antigen. No specific antiviral. Treatment: supportive care, fluid management. Dengue vaccine available in some countries.",
+    "page": 32,
+    "tags": ["viral", "vector-borne", "fever", "tropical"]
+  },
+  {
+    "id": 7,
+    "name": "Diabetes Mellitus Type 2",
+    "cause": "Insulin resistance, relative insulin deficiency. Genetics, obesity, sedentary lifestyle, age.",
+    "symptoms": "Polyuria, polydipsia, fatigue, blurred vision, slow wound healing, numbness/tingling (neuropathy).",
+    "description": "Chronic metabolic disorder affecting blood glucose regulation. Most common type (~90% of diabetes cases). Often asymptomatic in early stages, discovered incidentally.",
+    "additional_info": "Diagnosis: fasting glucose, HbA1c, oral glucose tolerance test. Management: lifestyle (diet, exercise), oral medications, insulin. Complications: cardiovascular, neuropathy, retinopathy, nephropathy.",
+    "page": 34,
+    "tags": ["chronic", "metabolic", "endocrine", "common"]
+  },
+  {
+    "id": 8,
+    "name": "Hypertension",
+    "cause": "Multifactorial: genetics, salt intake, obesity, alcohol, stress, secondary causes (renal, endocrine).",
+    "symptoms": "Often asymptomatic. Severe cases: headache, dizziness, shortness of breath, chest pain.",
+    "description": "Persistently elevated arterial blood pressure (≥140/90 mmHg). Major risk factor for stroke, MI, kidney disease. Diagnosed after repeated measurements.",
+    "additional_info": "Management: lifestyle (DASH diet, exercise, reduce salt/alcohol), antihypertensive medications. Regular monitoring essential. Target BP <130/80 for high-risk patients.",
+    "page": 36,
+    "tags": ["chronic", "cardiovascular", "common", "asymptomatic"]
+  },
+  {
+    "id": 9,
+    "name": "Pneumonia",
+    "cause": "Bacterial (S. pneumoniae, H. influenzae, S. aureus), viral (influenza, RSV), or fungal pathogens. Community or hospital-acquired.",
+    "symptoms": "Cough, fever, dyspnea, chest pain, sputum production (purulent, blood-tinged), crackles on auscultation.",
+    "description": "Acute infection of lung parenchyma causing alveolar consolidation. Can range from mild (walking pneumonia) to severe sepsis. Higher mortality in elderly/immunocompromised.",
+    "additional_info": "Diagnosis: chest X-ray, sputum culture, blood culture. Treatment: antibiotics (empiric, then targeted), supportive care, oxygen if needed. Prevention: pneumococcal vaccine.",
+    "page": 38,
+    "tags": ["respiratory", "bacterial", "acute", "serious"]
+  },
+  {
+    "id": 10,
+    "name": "Influenza (Flu)",
+    "cause": "Influenza viruses (A, B, C, D). Spread via respiratory droplets. High transmissibility, seasonal epidemics.",
+    "symptoms": "Abrupt onset fever, cough, sore throat, myalgias, fatigue, headache. GI symptoms in children.",
+    "description": "Acute viral respiratory infection. Incubation 1-4 days. Most recover within 1 week, but high-risk groups prone to severe disease/complications (pneumonia, myocarditis).",
+    "additional_info": "Diagnosis: rapid antigen test, RT-PCR. Treatment: oseltamivir (Tamiflu) if started early (<48h). Annual vaccination. Supportive care essential.",
+    "page": 40,
+    "tags": ["viral", "respiratory", "seasonal", "common"]
+  },
+  {
+    "id": 11,
+    "name": "HIV/AIDS",
+    "cause": "Human Immunodeficiency Virus (HIV) transmission via sexual contact, blood, mother-to-child.",
+    "symptoms": "Acute infection: fever, rash, lymphadenopathy. Chronic: asymptomatic until CD4 <200 (AIDS). AIDS-defining opportunistic infections.",
+    "description": "Chronic retroviral infection destroying CD4+ T cells. Untreated: progressive immunosuppression leading to AIDS and death. With ART: near-normal life expectancy.",
+    "additional_info": "Diagnosis: HIV antibody test, HIV RNA (viral load), CD4 count. Treatment: antiretroviral therapy (ART) first-line. Prevention: condoms, PrEP, safe practices. No cure, but manageable.",
+    "page": 42,
+    "tags": ["viral", "chronic", "systemic", "serious"]
+  },
+  {
+    "id": 12,
+    "name": "Hepatitis B",
+    "cause": "Hepatitis B virus (HBV) transmission via blood, sexual contact, mother-to-child, contaminated needles.",
+    "symptoms": "Acute: jaundice, fatigue, abdominal pain, dark urine. Chronic: often asymptomatic until cirrhosis.",
+    "description": "Viral infection of the liver. Acute infection resolves in 90% of adults; chronic in ~10%. Chronic HBV: risk of cirrhosis, hepatocellular carcinoma.",
+    "additional_info": "Diagnosis: HBsAg, anti-HBc, HBV DNA. Treatment: antivirals (entecavir, tenofovir) if chronic with high viral load/ALT. Prevention: vaccination (highly effective).",
+    "page": 44,
+    "tags": ["viral", "liver", "chronic", "vaccine-preventable"]
+  },
+  {
+    "id": 13,
+    "name": "Asthma",
+    "cause": "Genetic predisposition + environmental triggers (allergens, pollution, viral infection, exercise, stress).",
+    "symptoms": "Wheezing, shortness of breath, cough (especially at night), chest tightness, exacerbations triggered by allergens/exercise.",
+    "description": "Chronic inflammatory airway disease with reversible airflow obstruction. Affects children and adults. Severity ranges from intermittent to severe persistent.",
+    "additional_info": "Diagnosis: spirometry, peak flow, bronchial challenge test. Treatment: controller (inhaled corticosteroids) + rescue inhalers (beta-2 agonists). Avoid triggers. Prognosis good with proper management.",
+    "page": 46,
+    "tags": ["chronic", "respiratory", "inflammatory", "common"]
+  },
+  {
+    "id": 14,
+    "name": "Eczema (Atopic Dermatitis)",
+    "cause": "Genetic predisposition, impaired skin barrier, dysregulated immune response, environmental triggers (irritants, allergens).",
+    "symptoms": "Intense itching, erythema, dry skin, vesicles, crusting, lichenification (chronic). Often worse at night.",
+    "description": "Chronic inflammatory skin condition. Usually onset in infancy/early childhood. Highly pruritic, can severely impact quality of life. Exacerbated by stress, weather changes.",
+    "additional_info": "Diagnosis: clinical. Treatment: skin care (moisturizers), topical corticosteroids/calcineurin inhibitors, antihistamines. Severe: systemic immunosuppressants. Avoid triggers.",
+    "page": 48,
+    "tags": ["dermatologic", "chronic", "inflammatory", "common"]
+  },
+  {
+    "id": 15,
+    "name": "Obesity",
+    "cause": "Excessive caloric intake, sedentary lifestyle, genetic factors, metabolic disorders, medications, psychological factors.",
+    "symptoms": "Excess body fat, BMI ≥30, often asymptomatic. Associated: dyspnea, joint pain, sleep apnea, fatty liver.",
+    "description": "Chronic condition characterized by excess body fat. Major risk factor for T2DM, hypertension, dyslipidemia, cardiovascular disease, certain cancers.",
+    "additional_info": "Diagnosis: BMI, waist circumference, body composition. Management: lifestyle (calorie deficit, exercise), behavioral therapy, medications (rare), bariatric surgery (severe cases).",
+    "page": 50,
+    "tags": ["metabolic", "chronic", "cardiovascular-risk", "preventable"]
+  },
+  {
+    "id": 16,
+    "name": "Depression",
+    "cause": "Neurotransmitter dysregulation (serotonin, dopamine), genetic predisposition, life stressors, trauma, chronic illness.",
+    "symptoms": "Persistent sadness, anhedonia, fatigue, sleep disturbance, appetite change, guilt, poor concentration, suicidal thoughts.",
+    "description": "Common mental health disorder causing persistent depressed mood and loss of interest/pleasure. Can be mild to severe. High comorbidity with anxiety, substance abuse.",
+    "additional_info": "Diagnosis: clinical interview, symptom severity scales. Treatment: psychotherapy (CBT, IPT), SSRIs, SNRIs, tricyclic antidepressants. ECT for severe/refractory cases. Prognosis good with treatment.",
+    "page": 52,
+    "tags": ["psychiatric", "chronic", "common", "treatable"]
+  }
+]

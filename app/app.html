@@ -309,61 +309,105 @@
         </div>
     </div>
 
+    <script src="diseases-complete-359.js"></script>
     <script>
-        // Complete 359-Disease Database - Auto-generated from Online_Sicknesses__Diseases_only.txt
-        const DISEASES = [
-  {id: 1, name: "ABORTION", description: "", general: "", roots: "", recommendations: ""},
-  {id: 2, name: "ABSCESSES", description: "", general: "", roots: "", recommendations: ""},
-  {id: 3, name: "ABSENCE SEIZURES/PETIT MAL", description: "", general: "", roots: "", recommendations: ""},
-  {id: 4, name: "ACATHISIA", description: "", general: "", roots: "", recommendations: ""},
-  {id: 5, name: "ACCIDENTS", description: "", general: "", roots: "", recommendations: ""},
-  {id: 6, name: "ACID REFLUX/HEARTBURN", description: "", general: "", roots: "", recommendations: ""},
-  {id: 7, name: "ACIDOSIS", description: "", general: "", roots: "", recommendations: ""},
-  {id: 8, name: "ACNE", description: "", general: "", roots: "", recommendations: ""},
-  {id: 9, name: "ACROMEGALY", description: "", general: "", roots: "", recommendations: ""},
-  {id: 10, name: "ADDICTIONS/PORNOGRAPHY/ALCOHOLISM", description: "", general: "", roots: "", recommendations: ""},
-  {id: 11, name: "ADENOID GLANDS", description: "", general: "", roots: "", recommendations: ""},
-  {id: 12, name: "AEROGASTRIA/INTESTINAL GASES/FLATULENCE", description: "", general: "", roots: "", recommendations: ""},
-  {id: 13, name: "AEROPHAGIA (See INTESTINAL GASES/FLATULENCE)", description: "", general: "", roots: "", recommendations: ""},
-  {id: 14, name: "AGEUSIA", description: "", general: "", roots: "", recommendations: ""},
-  {id: 15, name: "AIDS", description: "", general: "", roots: "", recommendations: ""},
-  {id: 16, name: "ALKALOSIS", description: "", general: "", roots: "", recommendations: ""},
-  {id: 17, name: "ALLERGIES", description: "", general: "", roots: "", recommendations: ""},
-  {id: 18, name: "ALOPECIA/BALDNESS", description: "", general: "", roots: "", recommendations: ""},
-  {id: 19, name: "ALZHEIMER'S", description: "", general: "", roots: "", recommendations: ""},
-  {id: 20, name: "AMENORRHEA", description: "", general: "", roots: "", recommendations: ""},
-  {id: 21, name: "AMNESIA", description: "", general: "", roots: "", recommendations: ""},
-  {id: 22, name: "AMPUTATION (See the part of the body that was amputated)", description: "", general: "", roots: "", recommendations: ""},
-  {id: 23, name: "ANAEMIA (See BLOOD)", description: "", general: "", roots: "", recommendations: ""},
-  {id: 24, name: "ANAPHALACTIC SHOCK", description: "", general: "", roots: "", recommendations: ""},
-  {id: 25, name: "ANEURYSM (See ARTERIES)", description: "", general: "", roots: "", recommendations: ""},
-  {id: 26, name: "ANGINA", description: "", general: "", roots: "", recommendations: ""},
-  {id: 27, name: "ANIMAL BITES (See the part of the body that was bitten)", description: "", general: "", roots: "", recommendations: ""},
-  {id: 28, name: "ANKLES", description: "", general: "", roots: "", recommendations: ""},
-  {id: 29, name: "ANKYLOSING SPONDYLITIS (See AUTOIMMUNE DISEASES)", description: "", general: "", roots: "", recommendations: ""},
-  {id: 30, name: "ANOREXIA", description: "", general: "", roots: "", recommendations: ""},
-  {id: 31, name: "ANUS", description: "", general: "", roots: "", recommendations: ""},
-  {id: 32, name: "ANXIETY/ANGUISH", description: "", general: "", roots: "", recommendations: ""},
-  {id: 33, name: "APHASIA", description: "", general: "", roots: "", recommendations: ""},
-  {id: 34, name: "APHONIA/LARYNGITIS", description: "", general: "", roots: "", recommendations: ""},
-  {id: 35, name: "APNOEA", description: "", general: "", roots: "", recommendations: ""},
-  {id: 36, name: "APPENDICITIS", description: "", general: "", roots: "", recommendations: ""},
-  {id: 37, name: "ARMS", description: "", general: "", roots: "", recommendations: ""},
-  {id: 38, name: "ARTERIES", description: "", general: "", roots: "", recommendations: ""},
-  {id: 39, name: "ARTERIOSCLEROSIS", description: "", general: "", roots: "", recommendations: ""},
-  {id: 40, name: "ARTHRITIS (See the part of the body affected)", description: "", general: "", roots: "", recommendations: ""},
-  {id: 41, name: "ARTICULATIONS/JOINTS (See the part of the body affected)", description: "", general: "", roots: "", recommendations: ""},
-  {id: 42, name: "ASCITES", description: "", general: "", roots: "", recommendations: ""},
-  {id: 43, name: "ASTHMA (See LUNGS)", description: "", general: "", roots: "", recommendations: ""},
-  {id: 44, name: "ASTIGMATISM (See EYES)", description: "", general: "", roots: "", recommendations: ""},
-  {id: 45, name: "ATRESIA (See CONGENITAL DISEASE)", description: "", general: "", roots: "", recommendations: ""},
-  {id: 46, name: "AUTISM", description: "", general: "", roots: "", recommendations: ""},
-  {id: 47, name: "AUTOIMMUNE DISEASES/IMMUNE SYSTEM (See the", description: "", general: "", roots: "", recommendations: ""},
-  {id: 48, name: "BACK PAIN", description: "", general: "", roots: "", recommendations: ""},
-  {id: 49, name: "BALDNESS (See ALOPECIA)", description: "", general: "", roots: "", recommendations: ""},
-  {id: 50, name: "BLADDER", description: "", general: "", roots: "", recommendations: ""},
-  {id: 51, name: "BLEEDING", description: "", general: "", roots: "", recommendations: ""},
-  {id: 52, name: "BLEPHARITIS", description: "", general: "", roots: "", recommendations: ""},
+        // DISEASES array now loaded from diseases-complete-359.js
+        // All 359 diseases with complete medical/spiritual information
+        // Loaded from external diseases-complete-359.js file
+        
+        const searchInput = document.getElementById('searchInput');
+        const resultsContainer = document.getElementById('results');
+
+        // Function to perform search
+        function performSearch() {
+            const query = searchInput.value.trim().toLowerCase();
+            
+            if (!query) {
+                resultsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🔍</div>
+                        <p>Start typing to search for diseases and sicknesses...</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const results = DISEASES.filter(disease => {
+                return disease.name.toLowerCase().includes(query) ||
+                       disease.description.toLowerCase().includes(query) ||
+                       disease.general.toLowerCase().includes(query) ||
+                       disease.roots.toLowerCase().includes(query) ||
+                       disease.recommendations.toLowerCase().includes(query);
+            }).sort((a, b) => {
+                const aNameMatch = a.name.toLowerCase().includes(query);
+                const bNameMatch = b.name.toLowerCase().includes(query);
+                if (aNameMatch && !bNameMatch) return -1;
+                if (!aNameMatch && bNameMatch) return 1;
+                return 0;
+            });
+
+            if (results.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">❌</div>
+                        <p>No diseases found matching "<strong>${escapeHtml(query)}</strong>"</p>
+                    </div>
+                `;
+                return;
+            }
+
+            resultsContainer.innerHTML = results.map(disease => `
+                <div class="result-item">
+                    <div class="result-title">${highlightMatch(disease.name, query)}</div>
+                    
+                    <div class="result-section">
+                        <div class="result-label">Description</div>
+                        <div class="result-content">${highlightMatch(disease.description, query)}</div>
+                    </div>
+                    
+                    <div class="result-section">
+                        <div class="result-label">General Information</div>
+                        <div class="result-content">${highlightMatch(disease.general, query)}</div>
+                    </div>
+                    
+                    <div class="result-section">
+                        <div class="result-label">Roots/Symptoms</div>
+                        <div class="result-content">${highlightMatch(disease.roots, query)}</div>
+                    </div>
+                    
+                    <div class="result-section">
+                        <div class="result-label">Recommendations</div>
+                        <div class="result-content">${highlightMatch(disease.recommendations, query)}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Search as user types
+        searchInput.addEventListener('input', performSearch);
+
+        // Enter key in search input
+        searchInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        function highlightMatch(text, query) {
+            if (!query) return escapeHtml(text);
+            const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return escapeHtml(text).replace(regex, '<span class="highlight">$1</span>');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Initialization
+        performSearch();  // Show empty state on load
+    </script>
   {id: 53, name: "BLINDNESS (See EYE PROBLEMS)", description: "", general: "", roots: "", recommendations: ""},
   {id: 54, name: "BLISTERS", description: "", general: "", roots: "", recommendations: ""},
   {id: 55, name: "BLOOD", description: "", general: "", roots: "", recommendations: ""},
